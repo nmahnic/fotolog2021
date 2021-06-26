@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "907510938546",
+    "project_id": "fotolog2021",
+    "storage_bucket": "fotolog2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907510938546:android:58ddb02325ec8ce9b602ab",
+        "android_client_info": {
+          "package_name": "com.nicomahnic.dadm.fotolog2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907510938546-ju8duam9h7efr47311ohon12qndm0mtj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARc1XTPBOiPJ2YNqYxYEvvnkp1Zt977qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907510938546-ju8duam9h7efr47311ohon12qndm0mtj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

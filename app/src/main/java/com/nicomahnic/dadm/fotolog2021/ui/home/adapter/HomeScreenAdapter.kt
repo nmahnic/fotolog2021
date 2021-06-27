@@ -32,7 +32,7 @@ class HomeScreenAdapter(private val postList: List<Post>) :
             Glide.with(context).load(item.profilePicture).centerCrop().into(binding.profilePicture)
             Glide.with(context).load(item.postImage).centerCrop().into(binding.postImage)
             binding.profileName.text = item.profileName
-            binding.postTimestamp.text = "Hace 2 horas"
+            binding.postTimestamp.text = item.postTimestamp.toString()
         }
     }
 }

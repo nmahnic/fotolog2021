@@ -6,7 +6,6 @@ import com.nicomahnic.dadm.fotolog2021.data.remote.HomeScreenDataSource
 
 class HomeScreenRepoImpl(private val dataSource: HomeScreenDataSource) : HomeScreenRepo{
 
-    override suspend fun getLatestPosts(): Resource<List<Post>> =
-        dataSource.getLastestPosts()
+    override suspend fun getLatestPosts(): Resource<List<Post>> = dataSource.getLastestPosts()
 
 }

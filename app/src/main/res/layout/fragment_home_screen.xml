@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ui.home.HomeScreen">
+    tools:context=".ui.home.fragments.HomeScreenFragment">
 
     <RelativeLayout
         android:id="@+id/progressBar"
@@ -18,18 +18,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:scaleType="centerCrop"/>
-    <Button
-        android:id="@+id/btn_take_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Picture"
-        android:layout_margin="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"

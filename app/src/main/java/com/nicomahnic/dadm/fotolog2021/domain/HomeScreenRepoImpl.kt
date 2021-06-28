@@ -8,4 +8,8 @@ class HomeScreenRepoImpl(private val dataSource: HomeScreenDataSource) : HomeScr
 
     override suspend fun getLatestPosts(): Resource<List<Post>> = dataSource.getLastestPosts()
 
+    override suspend fun insertNewPost(post: Post) {
+        dataSource.insertNewPost(post)
+    }
+
 }

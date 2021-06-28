@@ -4,8 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.nicomahnic.dadm.fotolog2021.core.Resource
+import com.nicomahnic.dadm.fotolog2021.data.model.Post
 import com.nicomahnic.dadm.fotolog2021.domain.HomeScreenRepo
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(private val repo: HomeScreenRepo): ViewModel() {
     fun fetchLatestPosts() = liveData(Dispatchers.IO){
@@ -14,6 +17,12 @@ class HomeScreenViewModel(private val repo: HomeScreenRepo): ViewModel() {
             emit(repo.getLatestPosts())
         }catch (e: Exception){
             emit(Resource.Failure(e))
+        }
+    }
+
+     fun insertNewPost(post: Post) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repo.insertNewPost(post)
         }
     }
 }

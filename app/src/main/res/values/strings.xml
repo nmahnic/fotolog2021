@@ -1,5 +1,17 @@
 <resources>
-    <string name="app_name">fotolog2021</string>
+    <string name="app_name">Fotolog</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+
+    <string name="pref_file">com.nicomahnic</string>
+    <string name="addPost">Agregar Post</string>
+    <string name="rvPost">Ultimos Posteos</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="action_settings">Configuraciones</string>
 </resources>

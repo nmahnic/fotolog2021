@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/side_nav_bar">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,6 +39,29 @@
         android:id="@+id/post_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:layout_margin="4dp"
         tools:background="@mipmap/ic_launcher"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+
+        <CheckBox
+            android:id="@+id/cbPostLike"
+            android:layout_marginStart="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/checkbox_like"
+            android:button="@null"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Like"
+            android:layout_weight="7"/>
+    </LinearLayout>
 
 </LinearLayout>

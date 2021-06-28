@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navgraph"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.nicomahnic.dadm.fotolog2021.ui.home.fragments.HomeScreenFragment"
+        android:label="@string/rvPost"
+        tools:layout="@layout/fragment_home_screen" />
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.nicomahnic.dadm.fotolog2021.ui.home.fragments.AddPostFragment"
+        android:label="@string/addPost"
+        tools:layout="@layout/fragment_add_post" />
+</navigation>

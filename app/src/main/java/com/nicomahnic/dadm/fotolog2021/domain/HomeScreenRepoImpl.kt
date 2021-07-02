@@ -12,4 +12,7 @@ class HomeScreenRepoImpl(private val dataSource: HomeScreenDataSource) : HomeScr
         dataSource.insertNewPost(post)
     }
 
+    override suspend fun updatePost(postID: String, likes: List<String>) {
+        dataSource.updatePost(postID, likes)
+    }
 }

@@ -6,4 +6,5 @@ import com.nicomahnic.dadm.fotolog2021.data.model.Post
 interface HomeScreenRepo {
     suspend fun getLatestPosts(): Resource<List<Post>>
     suspend fun insertNewPost(post: Post)
+    suspend fun updatePost(postID: String, likes: List<String>)
 }

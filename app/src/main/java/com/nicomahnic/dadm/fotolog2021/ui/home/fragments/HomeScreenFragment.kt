@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.google.firebase.auth.FirebaseAuth
 import com.nicomahnic.dadm.fotolog2021.R
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
@@ -22,6 +24,8 @@ class HomeScreenFragment :
     HomeScreenAdapter.OnLikeClickListener
 {
 
+    private val firebaseAuth by lazy { FirebaseAuth.getInstance()}
+
     private lateinit var binding: FragmentHomeScreenBinding
     private val viewModel by viewModels<HomeScreenViewModel>{
         HomeScreenViewMModelFactory(
@@ -36,7 +40,7 @@ class HomeScreenFragment :
 
         binding = FragmentHomeScreenBinding.bind(view)
 
-        viewModel.fetchLatestPosts().observe(viewLifecycleOwner,  { result ->
+        viewModel.fetchLatestPosts().observe(viewLifecycleOwner,  Observer { result ->
             when(result){
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -51,10 +55,33 @@ class HomeScreenFragment :
                 }
             }
         })
-
     }
 
     override fun onLikeClick(position: Int, post: Post, isChecked: Boolean) {
         Log.d("NM","Post: ${post.profileName} $position is checked $isChecked")
+
+        firebaseAuth.currentUser?.let { user ->
+            if(!isChecked) {
+                viewModel.updatePost(post.postID, post.postLikes.minus(user.displayName.toString()))
+            }else {
+                viewModel.updatePost(post.postID,post.postLikes.plus(user.displayName.toString()))
+            }
+        }
+
+        viewModel.fetchLatestPosts().observe(viewLifecycleOwner,  Observer { result ->
+            when(result){
+                is Resource.Loading -> {
+//                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.rvHome.adapter = HomeScreenAdapter(result.data, this)
+                }
+                is Resource.Failure -> {
+                    binding.progressBar.visibility = View.GONE
+                    Toast.makeText(requireContext(),"Ocurrio un error: ${result.exception}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

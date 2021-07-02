@@ -78,6 +78,21 @@ dependencies {
     // Play services coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
+    // TimeAgo
+    implementation "com.github.marlonlom:timeago:4.0.3"
+
+    def camerax_version = "1.0.0-beta12"
+// CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+// CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+// CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha19"
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'pub.devrel:easypermissions:3.0.0'
+
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

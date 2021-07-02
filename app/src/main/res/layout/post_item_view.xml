@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/side_nav_bar">
+    android:background="@drawable/side_nav_bar"
+    android:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,10 +58,16 @@
             android:gravity="center"
             />
         <TextView
+            android:id="@+id/likesCounter"
             android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Like"
+            android:text="0" />
+        <TextView
+            android:layout_marginStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Likes"
             android:layout_weight="7"/>
     </LinearLayout>
 

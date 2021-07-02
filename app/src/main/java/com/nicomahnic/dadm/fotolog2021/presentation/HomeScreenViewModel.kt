@@ -3,6 +3,7 @@ package com.nicomahnic.dadm.fotolog2021.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
 import com.nicomahnic.dadm.fotolog2021.domain.HomeScreenRepo
@@ -20,9 +21,15 @@ class HomeScreenViewModel(private val repo: HomeScreenRepo): ViewModel() {
         }
     }
 
-     fun insertNewPost(post: Post) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun insertNewPost(post: Post) {
+        viewModelScope.launch {
             repo.insertNewPost(post)
+        }
+    }
+
+    fun updatePost(postID: String, likes: List<String>) {
+        viewModelScope.launch {
+            repo.updatePost(postID, likes)
         }
     }
 }

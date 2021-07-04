@@ -1,19 +1,11 @@
 package com.nicomahnic.dadm.fotolog2021.ui.home.fragments
 
 import android.Manifest
-import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
-import android.util.Size
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -31,9 +23,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.nicomahnic.dadm.fotolog2021.R
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
-import com.nicomahnic.dadm.fotolog2021.data.remote.HomeScreenDataSource
+import com.nicomahnic.dadm.fotolog2021.data.remote.PostDataSource
 import com.nicomahnic.dadm.fotolog2021.databinding.FragmentAddPostBinding
-import com.nicomahnic.dadm.fotolog2021.domain.HomeScreenRepoImpl
+import com.nicomahnic.dadm.fotolog2021.domain.PostRepoImpl
 import com.nicomahnic.dadm.fotolog2021.presentation.HomeScreenViewMModelFactory
 import com.nicomahnic.dadm.fotolog2021.presentation.HomeScreenViewModel
 import pub.devrel.easypermissions.EasyPermissions
@@ -56,8 +48,8 @@ class AddPostFragment : Fragment(R.layout.fragment_add_post) {
     private val firebaseAuth by lazy { FirebaseAuth.getInstance()}
     private val viewModel by viewModels<HomeScreenViewModel>{
         HomeScreenViewMModelFactory(
-            HomeScreenRepoImpl(
-                HomeScreenDataSource()
+            PostRepoImpl(
+                PostDataSource()
             )
         )
     }

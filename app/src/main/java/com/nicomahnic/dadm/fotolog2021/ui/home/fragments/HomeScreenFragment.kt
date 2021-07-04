@@ -11,9 +11,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.nicomahnic.dadm.fotolog2021.R
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
-import com.nicomahnic.dadm.fotolog2021.data.remote.HomeScreenDataSource
+import com.nicomahnic.dadm.fotolog2021.data.remote.PostDataSource
 import com.nicomahnic.dadm.fotolog2021.databinding.FragmentHomeScreenBinding
-import com.nicomahnic.dadm.fotolog2021.domain.HomeScreenRepoImpl
+import com.nicomahnic.dadm.fotolog2021.domain.PostRepoImpl
 import com.nicomahnic.dadm.fotolog2021.presentation.HomeScreenViewMModelFactory
 import com.nicomahnic.dadm.fotolog2021.presentation.HomeScreenViewModel
 import com.nicomahnic.dadm.fotolog2021.ui.home.adapter.HomeScreenAdapter
@@ -25,12 +25,13 @@ class HomeScreenFragment :
 {
 
     private val firebaseAuth by lazy { FirebaseAuth.getInstance()}
+    private lateinit var mAdapter: HomeScreenAdapter
 
     private lateinit var binding: FragmentHomeScreenBinding
     private val viewModel by viewModels<HomeScreenViewModel>{
         HomeScreenViewMModelFactory(
-            HomeScreenRepoImpl(
-                HomeScreenDataSource()
+            PostRepoImpl(
+                PostDataSource()
             )
         )
     }
@@ -47,7 +48,8 @@ class HomeScreenFragment :
                 }
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.rvHome.adapter = HomeScreenAdapter(result.data, this)
+                    mAdapter = HomeScreenAdapter(result.data, this)
+                    binding.rvHome.adapter = mAdapter
                 }
                 is Resource.Failure -> {
                     binding.progressBar.visibility = View.GONE
@@ -61,27 +63,11 @@ class HomeScreenFragment :
         Log.d("NM","Post: ${post.profileName} $position is checked $isChecked")
 
         firebaseAuth.currentUser?.let { user ->
-            if(!isChecked) {
+            if (!isChecked) {
                 viewModel.updatePost(post.postID, post.postLikes.minus(user.displayName.toString()))
-            }else {
-                viewModel.updatePost(post.postID,post.postLikes.plus(user.displayName.toString()))
+            } else {
+                viewModel.updatePost(post.postID, post.postLikes.plus(user.displayName.toString()))
             }
         }
-
-        viewModel.fetchLatestPosts().observe(viewLifecycleOwner,  Observer { result ->
-            when(result){
-                is Resource.Loading -> {
-//                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.rvHome.adapter = HomeScreenAdapter(result.data, this)
-                }
-                is Resource.Failure -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(),"Ocurrio un error: ${result.exception}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
     }
 }

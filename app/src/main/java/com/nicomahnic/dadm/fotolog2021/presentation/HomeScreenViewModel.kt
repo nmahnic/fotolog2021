@@ -6,13 +6,12 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
-import com.nicomahnic.dadm.fotolog2021.domain.HomeScreenRepo
-import kotlinx.coroutines.CoroutineScope
+import com.nicomahnic.dadm.fotolog2021.domain.PostRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeScreenViewModel(private val repo: HomeScreenRepo): ViewModel() {
-    fun fetchLatestPosts() = liveData(Dispatchers.IO){
+class HomeScreenViewModel(private val repo: PostRepo): ViewModel() {
+    fun fetchLatestPosts() = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
         emit(Resource.Loading())
         try {
             emit(repo.getLatestPosts())
@@ -34,9 +33,9 @@ class HomeScreenViewModel(private val repo: HomeScreenRepo): ViewModel() {
     }
 }
 
-class HomeScreenViewMModelFactory(private val repo: HomeScreenRepo): ViewModelProvider.Factory{
+class HomeScreenViewMModelFactory(private val repo: PostRepo): ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(HomeScreenRepo::class.java).newInstance(repo)
+        return modelClass.getConstructor(PostRepo::class.java).newInstance(repo)
     }
 
 }

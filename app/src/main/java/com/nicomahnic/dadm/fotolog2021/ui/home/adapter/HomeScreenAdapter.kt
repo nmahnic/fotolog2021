@@ -1,6 +1,7 @@
 package com.nicomahnic.dadm.fotolog2021.ui.home.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,8 @@ import com.bumptech.glide.Glide
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.github.marlonlom.utilities.timeago.TimeAgoMessages
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.QuerySnapshot
 import com.nicomahnic.dadm.fotolog2021.core.BaseViewHolder
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
 import com.nicomahnic.dadm.fotolog2021.databinding.PostItemViewBinding
@@ -38,6 +41,8 @@ class HomeScreenAdapter(
 
     override fun getItemCount(): Int = postList.size
 
+
+
     private inner class HomeScreenViewHolder(
             val binding: PostItemViewBinding,
             val context: Context
@@ -58,6 +63,10 @@ class HomeScreenAdapter(
                 binding.cbPostLike.isChecked = user.displayName in item.postLikes
             }
             binding.cbPostLike.setOnCheckedChangeListener { buttonView, isChecked ->
+                if(!isChecked)
+                    binding.likesCounter.text = (binding.likesCounter.text.toString().toInt() - 1).toString()
+                else
+                    binding.likesCounter.text = (binding.likesCounter.text.toString().toInt() + 1).toString()
                 itemLikeClickListener.onLikeClick(position, item, isChecked)
             }
         }

@@ -5,21 +5,26 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.*
 
-class HomeScreenDataSource {
+class PostDataSource {
 
     suspend fun getLastestPosts(): Resource<List<Post>>{
         val postList = mutableListOf<Post>()
-        val querySnapshot = FirebaseFirestore
-            .getInstance()
-            .collection("posts")
-            .orderBy("postTimestamp",Query.Direction.DESCENDING)
-            .get()
-            .await()
-        for(post in querySnapshot.documents){
-            post.toObject(Post::class.java)?.let { postList.add(it) }
+
+        withContext(Dispatchers.IO){
+            val querySnapshot = FirebaseFirestore
+                    .getInstance()
+                    .collection("posts")
+                    .orderBy("postTimestamp",Query.Direction.DESCENDING)
+                    .get()
+                    .await()
+            for(post in querySnapshot.documents){
+                post.toObject(Post::class.java)?.let { postList.add(it) }
+            }
         }
         return Resource.Success(postList)
     }

@@ -1,9 +1,7 @@
 package com.nicomahnic.dadm.fotolog2021.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import android.net.Uri
+import androidx.lifecycle.*
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
 import com.nicomahnic.dadm.fotolog2021.domain.PostRepo
@@ -11,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(private val repo: PostRepo): ViewModel() {
+
     fun fetchLatestPosts() = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
         emit(Resource.Loading())
         try {
@@ -23,6 +22,15 @@ class HomeScreenViewModel(private val repo: PostRepo): ViewModel() {
     fun insertNewPost(post: Post) {
         viewModelScope.launch {
             repo.insertNewPost(post)
+        }
+    }
+
+    fun insertNewImage(uri: Uri) = liveData(viewModelScope.coroutineContext + Dispatchers.Main){
+        emit(Resource.Loading())
+        try {
+            emit(repo.insertNewImage(uri))
+        }catch (e: Exception){
+            emit(Resource.Failure(e))
         }
     }
 

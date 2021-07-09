@@ -1,8 +1,10 @@
 package com.nicomahnic.dadm.fotolog2021.data.remote
 
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
 import com.nicomahnic.dadm.fotolog2021.core.Resource
 import com.nicomahnic.dadm.fotolog2021.data.model.Post
 import kotlinx.coroutines.Dispatchers
@@ -35,13 +37,16 @@ class PostDataSource {
         post.postID = postID
         FirebaseFirestore.getInstance().collection("posts")
             .document(postID).set(post)
-            .addOnSuccessListener {
-                Log.d("NM","Insert Success")
-            }
-            .addOnFailureListener {
-                Log.d("NM", "Insert Failure")
-            }
             .await()
+    }
+
+    suspend fun insertNewImage(uri: Uri): Resource<String>{
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imagesRef = storageRef.child("imagenes/${UUID.randomUUID()}.jpeg")
+        imagesRef.putFile(uri).await()
+
+        val url =  imagesRef.downloadUrl.await().toString()
+        return Resource.Success(url)
     }
 
     suspend fun updatePost(postID: String, likes: List<String>){

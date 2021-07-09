@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.nicomahnic.dadm.fotolog2021.R
+import com.nicomahnic.dadm.fotolog2021.databinding.ActivityHomeBinding
 import com.nicomahnic.dadm.fotolog2021.ui.login.MainActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -26,10 +27,12 @@ class HomeActivity:  AppCompatActivity() {
 
     private lateinit var navController: NavController
     private val firebaseAuth by lazy { FirebaseAuth.getInstance()}
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 

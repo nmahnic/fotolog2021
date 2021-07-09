@@ -41,6 +41,16 @@ class HomeScreenFragment :
 
         binding = FragmentHomeScreenBinding.bind(view)
 
+        fetchLatestPosts()
+
+        binding.swipeContainer.setOnRefreshListener {
+            Log.d("NM","chau")
+            fetchLatestPosts()
+            binding.swipeContainer.isRefreshing = false
+        }
+    }
+
+    fun fetchLatestPosts(){
         viewModel.fetchLatestPosts().observe(viewLifecycleOwner,  Observer { result ->
             when(result){
                 is Resource.Loading -> {
